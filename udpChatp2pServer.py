@@ -1,9 +1,12 @@
 import socket
 
+inputaddr = input('Please enter address: ')
+inputaddr = str(inputaddr)
 defaultPort = 9000
 clientaddr = '168.122.0.230'
 soc = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-soc.bind((clientaddr, 9000))
+soc.bind((inputaddr, 9000))
+print("connect to {}".format(inputaddr))
 
 while True:
 	clientList = []
