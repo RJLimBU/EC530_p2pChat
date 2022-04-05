@@ -1,3 +1,5 @@
 # EC530_p2pChat
 
-Hello there
+peer to peer Chat application using UDP
+
+
