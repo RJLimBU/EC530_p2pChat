@@ -9,7 +9,8 @@ server has been used, it does not participate in the communication anymore.
 
 ## *Code*
 - `TCP_client.py`: Single file for a TCP client. When two users run the program, 
-they can connect to each other and send messages.
+they can connect to each other and send messages. The sending and receiving of messages
+is handles with threads.
 
 ## *Screenshots*
 - The example below shows the TCP communication between 2 peers
