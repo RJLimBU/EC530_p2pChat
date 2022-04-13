@@ -1,36 +1,44 @@
 import socket
 
-inputaddr = input('Please enter address: ')
-inputaddr = str(inputaddr)
-defaultPort = 9000
-clientaddr = '168.122.0.230'
+defaultPort = 9999
+defaultAddr = '127.0.0.1'
 soc = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-soc.bind((inputaddr, 9000))
-print("connect to {}".format(inputaddr))
+soc.bind((defaultAddr, defaultPort))
+
+print("connect to {}".format(defaultAddr))
 
 while True:
-	clientList = []
+	clientsList = []
 
 	while True:
-
 		data, client_address =  soc.recvfrom(2048)
 		print('client address: ',client_address)
+		clientsList.append(client_address)
 		print('message: ',data)
 		print()
-		#msg = data
-		soc.sendto(b'ready', client_address)
-		soc.sendto(data, client_address)
+		soc.sendto(b'OK', client_address)
 
-		if len(clientList) >= 2:
-			print('got 2 clients, sending details to each')
+		if len(clientsList) >= 2:
+			print('2 clients connected...')
 			break
 
-	c1 = clients.pop()
-	c1_addr, c1_port = c1
-	c2 = clients.pop()
-	c2_addr, c2_port = c2
+	c1 = clientsList.pop()
+	c2 = clientsList.pop()
 
-	sock.sendto('{} {} {}'.format(c1_addr, c1_port, defaultPort).encode(), c2)
-	sock.sendto('{} {} {}'.format(c2_addr, c2_port, defaultPort).encode(), c1)
+	c1Addr = c1[0]
+	c1Port = c1[1]
+	c2Addr = c2[0]
+	c2Port = c2[1]
+
+	print("client1: {}, client2: {}".format(c1,c2))
+	print()
+
+	soc.sendto('{} {} {} {}'.format(data, c2Addr, c2Port, defaultPort).encode(), c1)
+	soc.sendto('{} {} {} {}'.format(data, c1Addr, c1Port, defaultPort).encode(), c2)
+	
+	print('send to client1: {} {} {} {}'.format(data, c2Addr, c2Port, defaultPort).encode())
+	print('send to client2: {} {} {} {}'.format(data, c1Addr, c1Port, defaultPort).encode())
+	print()
+	
 
 
